@@ -1,2 +1,4 @@
 com\universidad\compras\ejecucion\EjecucionSolicitudTest.class
+com\universidad\compras\notificacion\NotificacionEstadoTest.class
+com\universidad\compras\estado\TransicionEstadoTest.class
 com\universidad\compras\aprobacion\AprobacionNivelesTest.class

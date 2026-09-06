@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.universidad.compras.notificacion.NotificacionEstadoTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in com.universidad.compras.notificacion.NotificacionEstadoTest

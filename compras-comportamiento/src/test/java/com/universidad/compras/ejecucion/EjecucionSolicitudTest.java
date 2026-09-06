@@ -1,6 +1,7 @@
 package com.universidad.compras.ejecucion;
 
 import com.universidad.compras.modelo.Solicitud;
+import com.universidad.compras.notificacion.NotificadorCambioEstado;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,7 +12,7 @@ class EjecucionSolicitudTest {
         Solicitud s = new Solicitud("S-010", "ana@udes.edu.co", 3000000, "SOFTWARE", "CC-100");
         s.setEstado("APROBADA");
 
-        EjecutorSolicitud ejecutor = new EjecutorSolicitud(null);
+        EjecutorSolicitud ejecutor = new EjecutorSolicitud(new NotificadorCambioEstado());
         ejecutor.ejecutarTodo(s, new PresupuestoService(), new OrdenCompraService(), "Proveedor XYZ");
 
         assertEquals("EJECUTADA", s.getEstado());
@@ -23,15 +24,14 @@ class EjecucionSolicitudTest {
         PresupuestoService presupuestoService = new PresupuestoService();
         OrdenCompraService ordenCompraService = new OrdenCompraService();
 
-        EjecutorSolicitud ejecutor = new EjecutorSolicitud(null);
+        EjecutorSolicitud ejecutor = new EjecutorSolicitud(new NotificadorCambioEstado());
 
         assertDoesNotThrow(() -> {
             ejecutor.ejecutar(new ReservarPresupuestoCommand(presupuestoService, s.getCentroCosto(), s.getMonto()));
             ejecutor.ejecutar(new GenerarOrdenCompraCommand(ordenCompraService, s.getId(), "Proveedor ABC"));
-            ejecutor.deshacerUltima(); // deshace solo la generación de orden
+            ejecutor.deshacerUltima();
         });
 
-        // La reserva de presupuesto sigue en el historial (no fue deshecha)
         assertEquals(1, ejecutor.getHistorial().size());
     }
 
@@ -41,7 +41,7 @@ class EjecucionSolicitudTest {
         PresupuestoService presupuestoService = new PresupuestoService();
         OrdenCompraService ordenCompraService = new OrdenCompraService();
 
-        EjecutorSolicitud ejecutor = new EjecutorSolicitud(null);
+        EjecutorSolicitud ejecutor = new EjecutorSolicitud(new NotificadorCambioEstado());
 
         assertDoesNotThrow(() -> {
             ejecutor.ejecutar(new ReservarPresupuestoCommand(presupuestoService, s.getCentroCosto(), s.getMonto()));
