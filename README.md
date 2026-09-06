@@ -113,6 +113,47 @@ lógica de negocio asociada al cómo se llegó a ese estado.
 - Java 17, Spring Boot 3.2, Apache Maven, JUnit 5
 - VS Code, Git, GitHub
 
+## Estructura del proyecto
+
+```
+src/main/java/com/universidad/compras/
+├── ComprasApp.java
+├── modelo/
+│   └── Solicitud.java              (dado — entidad compartida)
+├── aprobacion/                      (Necesidad 1 — Chain of Responsibility)
+│   ├── ServicioAprobacion.java      (dado)
+│   ├── ResultadoAprobacion.java     (dado)
+│   ├── ControladorSolicitudes.java  (dado)
+│   ├── NivelAprobacion.java
+│   ├── NivelSupervisorArea.java
+│   ├── NivelGerenteArea.java
+│   ├── NivelDirectorFinanciero.java
+│   ├── NivelCumplimientoNormativo.java
+│   └── ServicioAprobacionPorNiveles.java
+├── ejecucion/                       (Necesidad 2 — Command)
+│   ├── PresupuestoService.java      (dado)
+│   ├── OrdenCompraService.java      (dado)
+│   ├── OperacionEjecutable.java
+│   ├── ReservarPresupuestoCommand.java
+│   ├── GenerarOrdenCompraCommand.java
+│   └── EjecutorSolicitud.java
+├── notificacion/                    (Necesidad 3 — Observer)
+│   ├── ClientesNotificacion.java    (dado)
+│   ├── ObservadorCambioEstado.java
+│   ├── NotificacionCorreoObserver.java
+│   ├── NotificacionDashboardObserver.java
+│   ├── NotificacionAuditoriaObserver.java
+│   └── NotificadorCambioEstado.java
+└── estado/                          (Necesidad 4 — State)
+    ├── EstadoSolicitud.java
+    ├── EstadoPendiente.java
+    ├── EstadoAprobada.java
+    ├── EstadoEjecutada.java
+    ├── EstadoRechazada.java
+    ├── EstadoCancelada.java
+    └── ContextoSolicitud.java
+```
+
 ## Conclusiones
 
 Este post-contenido mostró que dos patrones pueden compartir el mismo dominio de
