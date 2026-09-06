@@ -1,0 +1,17 @@
+com\universidad\compras\aprobacion\NivelSupervisorArea.class
+com\universidad\compras\ejecucion\OperacionEjecutable.class
+com\universidad\compras\aprobacion\ControladorSolicitudes.class
+com\universidad\compras\aprobacion\NivelDirectorFinanciero.class
+com\universidad\compras\aprobacion\ServicioAprobacionPorNiveles.class
+com\universidad\compras\ejecucion\OrdenCompraService.class
+com\universidad\compras\ejecucion\EjecutorSolicitud.class
+com\universidad\compras\aprobacion\NivelCumplimientoNormativo.class
+com\universidad\compras\ejecucion\ReservarPresupuestoCommand.class
+com\universidad\compras\ejecucion\GenerarOrdenCompraCommand.class
+com\universidad\compras\aprobacion\NivelAprobacion.class
+com\universidad\compras\aprobacion\ServicioAprobacion.class
+com\universidad\compras\ComprasApp.class
+com\universidad\compras\aprobacion\NivelGerenteArea.class
+com\universidad\compras\ejecucion\PresupuestoService.class
+com\universidad\compras\modelo\Solicitud.class
+com\universidad\compras\aprobacion\ResultadoAprobacion.class
