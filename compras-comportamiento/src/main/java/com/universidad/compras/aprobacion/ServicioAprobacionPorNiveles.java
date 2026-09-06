@@ -1,14 +1,18 @@
 package com.universidad.compras.aprobacion;
 
 import com.universidad.compras.modelo.Solicitud;
+import com.universidad.compras.notificacion.NotificadorCambioEstado;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ServicioAprobacionPorNiveles implements ServicioAprobacion {
 
     private final NivelAprobacion cadena;
+    private final NotificadorCambioEstado notificador;
 
-    public ServicioAprobacionPorNiveles() {
+    public ServicioAprobacionPorNiveles(NotificadorCambioEstado notificador) {
+        this.notificador = notificador;
+
         NivelAprobacion cumplimiento = new NivelCumplimientoNormativo();
         NivelAprobacion supervisor = new NivelSupervisorArea();
         NivelAprobacion gerente = new NivelGerenteArea();
@@ -23,6 +27,8 @@ public class ServicioAprobacionPorNiveles implements ServicioAprobacion {
 
     @Override
     public ResultadoAprobacion evaluar(Solicitud solicitud) {
-        return cadena.evaluar(solicitud);
+        ResultadoAprobacion resultado = cadena.evaluar(solicitud);
+        notificador.notificarCambio(solicitud);
+        return resultado;
     }
 }

@@ -1,17 +1,18 @@
 package com.universidad.compras.ejecucion;
 
 import com.universidad.compras.modelo.Solicitud;
+import com.universidad.compras.notificacion.NotificadorCambioEstado;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Invocador del patrón Command: mantiene un historial ordenado de
- * todas las operaciones ejecutadas sobre una solicitud, permitiendo
- * deshacer cualquiera de ellas de forma independiente.
- */
 public class EjecutorSolicitud {
 
     private final List<OperacionEjecutable> historial = new ArrayList<>();
+    private final NotificadorCambioEstado notificador;
+
+    public EjecutorSolicitud(NotificadorCambioEstado notificador) {
+        this.notificador = notificador;
+    }
 
     public void ejecutar(OperacionEjecutable operacion) {
         operacion.ejecutar();
@@ -34,5 +35,6 @@ public class EjecutorSolicitud {
         ejecutar(new ReservarPresupuestoCommand(presupuestoService, solicitud.getCentroCosto(), solicitud.getMonto()));
         ejecutar(new GenerarOrdenCompraCommand(ordenCompraService, solicitud.getId(), proveedor));
         solicitud.setEstado("EJECUTADA");
+        notificador.notificarCambio(solicitud);
     }
 }
